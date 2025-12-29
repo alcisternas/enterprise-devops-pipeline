@@ -9,12 +9,12 @@ Configurar y entender los metodos de autenticacion para push/pull de imagenes co
 
 ### Resumen
 
-| Metodo | Uso | Seguridad | Configuracion |
-|--------|-----|-----------|---------------|
-| gcloud credential helper | Desarrollo local | Alta | Automatica |
-| Token de acceso | CI/CD | Media | Manual |
-| Service Account Key | CI/CD legacy | Media | JSON file |
-| Workload Identity | GKE/Cloud Run/Cloud Build | Alta | Sin secretos |
+| Metodo                    | Uso                       | Seguridad | Configuracion |
+|--------                   |-----                      |-----------|---------------|
+| gcloud credential helper  | Desarrollo local          | Alta      | Automatica    |
+| Token de acceso           | CI/CD                     | Media     | Manual        |
+| Service Account Key       | CI/CD legacy              | Media     | JSON file     |
+| Workload Identity         | GKE/Cloud Run/Cloud Build | Alta      | Sin secretos  |
 
 ---
 
@@ -120,12 +120,12 @@ Permite que cargas de trabajo en GCP se autentiquen sin secretos, usando la iden
 
 ### Donde funciona
 
-| Servicio | Soporte |
-|----------|---------|
-| GKE | Si (configuracion requerida) |
-| Cloud Run | Si (automatico) |
-| Cloud Build | Si (automatico) |
-| Compute Engine | Si (Service Account adjunta) |
+| Servicio          | Soporte                       |
+|----------         |---------                      |
+| GKE               | Si (configuracion requerida)  |
+| Cloud Run         | Si (automatico)               |
+| Cloud Build       | Si (automatico)               |
+| Compute Engine    | Si (Service Account adjunta)  |
 
 ### En Cloud Build (automatico)
 ```yaml
@@ -155,11 +155,11 @@ metadata:
 
 ### Roles de Artifact Registry
 
-| Rol | Permisos |
-|-----|----------|
-| artifactregistry.reader | Pull imagenes |
-| artifactregistry.writer | Push + Pull imagenes |
-| artifactregistry.admin | Administrar repositorios |
+| Rol                       | Permisos                  |
+|-----                      |----------                 |
+| artifactregistry.reader   | Pull imagenes             |
+| artifactregistry.writer   | Push + Pull imagenes      |
+| artifactregistry.admin    | Administrar repositorios  |
 
 ### Asignar permisos
 ```powershell
