@@ -40,10 +40,10 @@ CMD ["python", "app.py"]
 
 ### Comparacion de Tamanos
 
-| Dockerfile | Tamano | Diferencia |
-|------------|--------|------------|
-| Single-stage | 354 MB | - |
-| Multi-stage | 170 MB | -52% |
+| Dockerfile	| Tamano | Diferencia	|
+|------------	|--------|------------	|
+| Single-stage	| 354 MB | -			|
+| Multi-stage	| 170 MB | -52%			|
 
 ### Ahorro: 184 MB (52% menos)
 
@@ -110,12 +110,12 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ### Elementos clave
 
-| Elemento | Proposito |
-|----------|-----------|
-| `AS builder` | Nombra el stage para referencia |
-| `COPY --from=builder` | Copia archivos de otro stage |
-| `/opt/venv` | Virtualenv con dependencias instaladas |
-| `--no-cache-dir` | No guardar cache de pip (reduce tamano) |
+| Elemento				| Proposito									|
+|----------				|-----------								|
+| `AS builder`			| Nombra el stage para referencia			|
+| `COPY --from=builder` | Copia archivos de otro stage				|
+| `/opt/venv`			| Virtualenv con dependencias instaladas	|
+| `--no-cache-dir`		| No guardar cache de pip (reduce tamano)	|
 
 ---
 
@@ -193,12 +193,12 @@ RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
 
 ### 4. Usar imagenes base pequenas
 
-| Imagen | Tamano |
-|--------|--------|
-| python:3.11 | ~1 GB |
-| python:3.11-slim | ~150 MB |
-| python:3.11-alpine | ~50 MB |
-| distroless/python3 | ~50 MB |
+| Imagen				| Tamano	|
+|--------				|--------	|
+| python:3.11			| ~1 GB		|
+| python:3.11-slim		| ~150 MB	|
+| python:3.11-alpine	| ~50 MB	|
+| distroless/python3	| ~50 MB	|
 
 ---
 
@@ -206,14 +206,14 @@ RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
 
 ### fastapi-app:v1
 
-| Caracteristica | Valor |
-|----------------|-------|
-| Base | python:3.11-slim |
-| Stages | 2 (builder + runtime) |
-| Tamano local | 170 MB |
-| Tamano registry | ~58 MB (comprimido) |
-| Usuario | non-root (appuser) |
-| Puerto | 8000 |
+| Caracteristica	| Valor					|
+|----------------	|-------				|
+| Base				| python:3.11-slim		|
+| Stages			| 2 (builder + runtime)	|
+| Tamano local		| 170 MB				|
+| Tamano registry	| ~58 MB (comprimido)	|
+| Usuario			| non-root (appuser)	|
+| Puerto			| 8000					|
 
 ---
 
