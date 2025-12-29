@@ -1,0 +1,28 @@
+# Single-stage build - NO RECOMENDADO para produccion
+FROM python:3.11-slim
+
+LABEL maintainer="devops-course"
+LABEL version="1.0"
+LABEL description="FastAPI app - single stage build"
+
+WORKDIR /app
+
+# Instalar dependencias de compilacion (quedan en imagen final)
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar e instalar dependencias
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar codigo
+COPY main.py .
+
+# Usuario non-root
+RUN useradd --create-home appuser
+USER appuser
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

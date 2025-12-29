@@ -1,0 +1,47 @@
+# =============================================================================
+# Multi-stage build - RECOMENDADO para produccion
+# =============================================================================
+
+# Stage 1: Builder - instala dependencias
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# Instalar dependencias de compilacion (solo en builder)
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear virtualenv para aislar dependencias
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Instalar dependencias en virtualenv
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# =============================================================================
+# Stage 2: Runtime - imagen final minima
+# =============================================================================
+FROM python:3.11-slim AS runtime
+
+LABEL maintainer="devops-course"
+LABEL version="1.0"
+LABEL description="FastAPI app - multi stage build"
+
+WORKDIR /app
+
+# Copiar SOLO el virtualenv del builder (sin gcc ni herramientas)
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copiar codigo fuente
+COPY main.py .
+
+# Usuario non-root
+RUN useradd --create-home appuser
+USER appuser
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
