@@ -23,3 +23,31 @@ output "kms_artifact_signing_key_id" {
   description = "KMS Artifact Signing Key ID"
   value       = data.google_kms_crypto_key.artifact_signing.id
 }
+
+# Storage Outputs
+output "encrypted_bucket_name" {
+  description = "Encrypted bucket name with CMEK"
+  value       = google_storage_bucket.encrypted_data.name
+}
+
+output "encrypted_bucket_url" {
+  description = "Encrypted bucket URL"
+  value       = google_storage_bucket.encrypted_data.url
+}
+
+# Artifact Registry Outputs
+output "artifact_registry_id" {
+  description = "Artifact Registry repository ID"
+  value       = google_artifact_registry_repository.containers.id
+}
+
+output "artifact_registry_url" {
+  description = "URL for push/pull images"
+  value       = "${var.region}-docker.pkg.dev/${var.project_id}/containers"
+}
+
+# IAM Outputs
+output "cloud_run_sa_email" {
+  description = "Cloud Run Service Account email"
+  value       = google_service_account.cloud_run_sa.email
+}
