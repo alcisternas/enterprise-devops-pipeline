@@ -7,12 +7,12 @@ Revisar logs, trazabilidad y herramientas de auditoria para imagenes y despliegu
 
 ## Herramientas de Auditoria
 
-### 1. Logs de Binary Authorization
+### 1. Logs de Cloud Run
 ```powershell
-gcloud logging read "protoPayload.status.message:\"denied by attestor\"" --project PROJECT --limit 5
+gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=SERVICE" --project PROJECT --limit 10
 ```
 
-Muestra intentos de despliegue bloqueados por falta de firma.
+Muestra actividad del servicio desplegado.
 
 ### 2. Attestations
 ```powershell
