@@ -1,0 +1,10 @@
+admissionWhitelistPatterns:
+  - namePattern: gcr.io/google-samples/*
+  - namePattern: gcr.io/cloudrun/*
+  - namePattern: gcr.io/knative-releases/*
+defaultAdmissionRule:
+  enforcementMode: ENFORCED_BLOCK_AND_AUDIT_LOG
+  evaluationMode: REQUIRE_ATTESTATION
+  requireAttestationsBy:
+    - projects/project02-482522/attestors/secure-build-attestor
+globalPolicyEvaluationMode: ENABLE
